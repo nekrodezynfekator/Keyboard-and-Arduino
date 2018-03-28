@@ -19,7 +19,7 @@ def mp_data_collect(state, curr_time):
 
         with open(output_path, 'a') as f:
             # TODO pass strip from child process (instead of `s`).
-            row = '%s,%s,%s\n' % (dataSer, state.value, curr_time.value)
+            row = '%s,%s,%s\n' % (dataSer.strip(), state.value, curr_time.value)
             f.write(row)
 
     ser.close()
@@ -53,11 +53,7 @@ start = time.time()
 
 screen = pygame.display.set_mode((50, 50))
 while not terminate.is_set():
-    # FIXME in milliseconds so that it can be stored as int, now it will
-    # throw an error.
-    curr_time.value = '%.4f' % (time.time()-start)
-    # FIXME: doesn't listens keystrokes, I don't know why yet.
-    # It has sth to with the way int is stored in the `state` variable.
+    curr_time.value = int(round((time.time()-start)*1000,0))
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
