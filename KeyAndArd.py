@@ -6,7 +6,7 @@ import multiprocessing as mp
 
 def mp_data_collect(state, curr_time):
 
-    ser = serial.Serial('/dev/ttyUSB0', 9600)
+    ser = serial.Serial('/dev/ttyACM0', 9600)
 
     while not terminate.is_set():
 
@@ -38,7 +38,7 @@ start = time.time()
 
 screen = pygame.display.set_mode((50, 50))
 while not terminate.is_set():
-    curr_time.value = int(round((time.time()-start)*1000,0))
+    curr_time.value = int(round((time.time()-start)*1000, 0))
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q:
